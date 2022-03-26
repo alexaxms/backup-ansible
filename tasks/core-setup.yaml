@@ -1,0 +1,68 @@
+- name: Install cmake
+  become: true
+  shell: pacman -S --noconfirm cmake
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Install System Packages 1 (openssh go build-essential, pkg-config, unzip)
+  become: true
+  pacman:
+    name: 
+    - openssh
+    - go
+    - base-devel
+    - pkgconf
+    - unzip
+    state: present
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Install yay
+  shell: git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Update yay
+  shell: yay
+  tags:
+    - install
+    - neovim
+    - core
+
+
+- name: Install pod2man
+  shell: yay -S pod2man
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Install System Packages 2 (fzf i3 picom kitty tmux nitrogen blueberry)
+  become: true
+  pacman:
+    name: 
+    - fzf
+    - i3-gaps
+    - picom
+    - kitty
+    - tmux
+    - nitrogen
+    - blueberry
+    state: present
+  tags:
+    - install
+    - core
+    - utils
+
+- name: Install polybar brave autojump
+  shell: yay -S polybar autojump brave-bin --noconfirm
+  tags:
+    - install
+    - core
+    - utils

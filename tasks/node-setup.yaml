@@ -1,0 +1,31 @@
+- name: Install node
+  become: true
+  pacman:
+    name: 
+    - nodejs
+    - npm
+    state: present
+  tags:
+    - install
+    - node
+
+- name: Update node
+  become: true
+  shell: npm i -g npm
+  tags:
+    - install
+    - node
+
+- name: Install n
+  become: true
+  shell: npm i -g n
+  tags:
+    - install
+    - node
+
+- name: Install correct version of Node
+  become: true
+  shell: n 14
+  tags:
+    - install
+    - node

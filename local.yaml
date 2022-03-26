@@ -1,0 +1,23 @@
+- hosts: localhost
+  vars:
+    source_key: ".ssh/id_rsa"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+  pre_tasks:
+  - name: Update packages
+    become: true
+    community.general.pacman:
+      update_cache: yes
+      upgrade: yes
+    tags:
+      - install
+      - core
+  tasks:
+  - include: tasks/ssh.yaml
+  - include: tasks/git-setup.yaml
+  - include: tasks/core-setup.yaml
+  - include: tasks/node-setup.yaml
+  - include: tasks/npm-packages.yaml
+  - include: tasks/zsh-setup.yaml
+  - include: tasks/nvim-setup.yaml
+  - include: tasks/dotfiles.yaml
